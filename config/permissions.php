@@ -84,6 +84,7 @@ return [
                 'webauthn2faRegisterOptions',
                 'webauthn2faAuthenticate',
                 'webauthn2faAuthenticateOptions',
+                '',
             ],
             'bypassAuth' => true,
         ],
@@ -97,6 +98,32 @@ return [
             ],
             'bypassAuth' => true,
         ],
+    
+        [
+            'role'=>'user',
+            'prefix' => false,
+            'plugin' => null, // Assuming the controller is not in a plugin
+            'controller' => 'Sheets',
+            'action' => ['clientview','edit','add','list','delete'],
+            'bypassAuth' => true,
+        ],
+        [
+            'role'=>'user',
+            'prefix' => false,
+            'plugin' => null, // Assuming the controller is not in a plugin
+            'controller' => 'Outpackages',
+            'action' => ['add','deleteoutpackages'],
+            'bypassAuth' => true,
+        ],
+
+        [
+            'role'=>'comptable',
+            'prefix' => false,
+            'plugin' => null, // Assuming the controller is not in a plugin
+            'controller' => 'Sheets',
+            'action' => ['comptableview','comptablelist','edit'],
+            'bypassAuth' => true,
+        ],
         //admin role allowed to all the things
         [
             'role' => 'admin',
@@ -106,7 +133,6 @@ return [
             'controller' => '*',
             'action' => '*',
         ],
-      
         //specific actions allowed for the all roles in Users plugin
         [
             'role' => '*',

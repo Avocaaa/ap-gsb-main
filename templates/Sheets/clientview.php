@@ -3,11 +3,11 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Sheet $sheet
  */
- 
+
  $identity = $this->getRequest()->getAttribute('identity');
 $identity = $identity ?? [];
 $iduser = $identity["id"];
- 
+
 $total = 0;
 $total_package = 0;
 $total_outpackage = 0;
@@ -55,7 +55,7 @@ $total_outpackage = 0;
                     <td><?= $sheet->sheetvalidated ? __('Yes') : __('No'); ?></td>
                 </tr>
             </table>
-           
+            
             <div class="related">
                 <h4 class="float-left"><?= __('Related Packages') ?></h4>
                 <?= $this->Form->create($sheet, ['url' => ['controller' => 'Sheets', 'action' => 'clientview', $sheet->id]]) ?>
@@ -64,8 +64,6 @@ $total_outpackage = 0;
                         <table>
                             <tr>
                                 <th><?= __('Id') ?></th>
-                               
-                               
                                 <th><?= __('Title') ?></th>
                                 <th><?= __('Body') ?></th>
                                 <th><?= __('Quantity') ?></th>
@@ -74,8 +72,8 @@ $total_outpackage = 0;
                             <?php foreach ($sheet->packages as $package) : ?>
                                 <tr>
                                     <td><?= h($package->id) ?></td>
-                                   
-                                   
+                                    
+                                    
                                     <td><?= h($package->title) ?></td>
                                     <!-- Limiter la taille du champ body à 100 caractères -->
                                     <td title="<?= h($package->body) ?>">
@@ -104,23 +102,24 @@ $total_outpackage = 0;
                         <?php if ($sheet->state->id == 1 && !$sheet->sheetvalidated): ?>
                             <td>
                                 <?= $this->Form->hidden('action', ['value' => '']) ?>
-                                <?= $this->Form->button('Save', ['type' => 'submit']) ?>
-                            </td>
+                                <?= $this->Form->button('Save New Quantity', ['type' => 'submit']) ?>
+                            </td> 
                         <?php endif; ?>
                         <?= '<strong style="margin-left: 1rem">Total package : </strong>'.$total_package." €" ?>
                     </div>
                 <?php endif; ?>
                 <?= $this->Form->end() ?>
-               
+                
             </div>
             <div class="related">
                 <h4 class="float-left"><?= __('Related Outpackages') ?></h4>
                 <?php if($sheet->state->id == 1): ?>
                     <?php if($sheet->sheetvalidated == false): ?>
-                        <?= $this->Html->link('New Outpackages', ['controller' => 'Outpackages', 'action' => 'add', $sheet->id], ['class' => 'button float-right']) ?>
+                        <?= $this->Html->link('New Outpackage', ['controller' => 'Outpackages', 'action' => 'add', $sheet->id], ['class' => 'button float-right']) ?>
                     <?php endif; ?>
                 <?php endif; ?>
                 <?php if (!empty($sheet->outpackages)) : ?>
+               
                 <div class="table-responsive">
                     <table>
                         <tr>
@@ -138,9 +137,15 @@ $total_outpackage = 0;
                         <?php foreach ($sheet->outpackages as $outpackages) : ?>
                         <tr>
                             <td><?= h($outpackages->id) ?></td>
-                            <td><?= h($outpackages->date) ?></td>
-                            <td><?= h($outpackages->price) ?> €</td>
+                            <td><?= h($outpackages->date) ?></td>      
+                            <td><?= h($outpackages->price) ?> € </td>
+                          
+                   
+                           
+                           
+
                             <td><?= h($outpackages->title) ?></td>
+
                             <!-- Limiter la taille du champ body à 100 caractères -->
                             <td title="<?= h($outpackages->body) ?>">
                                 <?= h(substr($outpackages->body, 0, 100)) ?> ...
@@ -148,20 +153,28 @@ $total_outpackage = 0;
                             <?php if($sheet->state->id == 1): ?>
                                 <?php if($sheet->sheetvalidated == false): ?>
                                     <td class="actions">
-                                        <?= $this->Form->postLink(__('Delete'), ['controller' => 'Outpackages', 'action' => 'delete', $outpackages->id, $sheet->id], ['confirm' => __('Are you sure you want to delete # {0}?', $outpackages->id)]) ?>
+                                        <?= $this->Form->postLink(__('Delete'), ['controller' => 'Outpackages', 'action' => 'deleteoutpackages', $outpackages->id, $sheet->id], ['confirm' => __('Are you sure you want to delete # {0}?', $outpackages->id)]) ?>
+
                                     </td>
                                 <?php endif; ?>
-                            <?php endif; ?>
+                            <?php endif; ?> 
                         </tr>
                         <?php $total_outpackage = $total_outpackage + $outpackages->price; ?>
+                        
                         <?php endforeach; ?>
                     </table>
+                    
                 </div>
+              
                 <?php endif; ?>
+                
+                
                 <?= '<div style="margin-top: 1rem"><strong>Total outpackage : </strong>'.$total_outpackage." €</div>" ?>
+                    
                 <?= '</br><strong>Total : </strong>'.$total = $total_outpackage + $total_package." €" ?>
+                
             </div>
-           
+            
         </div>
     </div>
 </div>

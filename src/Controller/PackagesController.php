@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 
 namespace App\Controller;
+use App\Controller\AppController;
+use App\Model\Table\SheetsPackagesTable; 
+
 
 /**
  * Packages Controller
@@ -11,6 +14,7 @@ namespace App\Controller;
  * @property \App\Model\Table\PackagesTable $Packages
  * @method \App\Model\Entity\Package[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
+
 class PackagesController extends AppController
 {
     /**
@@ -106,4 +110,14 @@ class PackagesController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+    
+    public $SheetsPackages;
+    
+    
+
+    // Dans PackagesController.php
+
+
+
+
 }

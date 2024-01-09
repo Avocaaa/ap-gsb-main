@@ -56,7 +56,7 @@
 
                 <h4><?= __('Related Outpackages') ?></h4>
                 
-                <?= $this->Html->link(__('New Outpackage'), ['controller' => 'Outpackages', 'action' => 'add'], ['class' => 'button float-right']) ?>
+                <?= $this->Html->link(__('New Outpackage'), ['controller' => 'OutPackages', 'action' => 'add'], ['class' => 'button float-right']) ?>
                 
                 <div class="table-responsive">
                     <table>
@@ -102,6 +102,7 @@
 
 
                             <th class="actions"><?= __('Actions') ?></th>
+
                         </tr>
                         <?php foreach ($sheet->packages as $packages) : ?>
                         <tr>
@@ -111,7 +112,7 @@
                             <td><?= h($packages->body) ?></td>
 
                             <td>
-                                <?= $this->Form->create(null, ['url' => ['controller' => 'VotreController', 'action' => 'votreAction', $packages->id]]) ?>
+                                <?= $this->Form->create(null, ['url' => ['controller' => 'Packages', 'action' => 'updateQuantity', $packages->id]]) ?>
                                 <?= $this->Form->hidden("packages.{$packages->id}.id", ['value' => $packages->_joinData->id]) ?>
                                 <?= $this->Form->control("packages.{$packages->id}.quantity", ['type' => 'text', 'label' => false, 'value' => isset($packages->_joinData->quantity) ? $packages->_joinData->quantity :0]) ?>
                             </td>
@@ -125,6 +126,7 @@
                                 
                         
                             <td class="actions">
+                                <?= $this->Form->button(__('Save'), ['type' => 'submit']) ?>
                                 <?= $this->Html->link(__('View'), ['controller' => 'Packages', 'action' => 'view', $packages->id]) ?>
                                 <?= $this->Html->link(__('Edit'), ['controller' => 'Packages', 'action' => 'edit', $packages->id]) ?>
                                 <?= $this->Form->postLink(__('Delete'), ['controller' => 'Packages', 'action' => 'delete', $packages->id], ['confirm' => __('Are you sure you want to delete # {0}?', $packages->id)]) ?>
