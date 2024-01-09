@@ -106,6 +106,7 @@ return [
             'controller' => '*',
             'action' => '*',
         ],
+      
         //specific actions allowed for the all roles in Users plugin
         [
             'role' => '*',

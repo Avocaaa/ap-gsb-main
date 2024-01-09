@@ -45,21 +45,30 @@ class OutpackagesController extends AppController
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
     public function add()
-    {
-        $outpackage = $this->Outpackages->newEmptyEntity();
-        if ($this->request->is('post')) {
-            $outpackage = $this->Outpackages->patchEntity($outpackage, $this->request->getData());
-            if ($this->Outpackages->save($outpackage)) {
-                $this->Flash->success(__('The outpackage has been saved.'));
+{
+    $outpackage = $this->Outpackages->newEmptyEntity();
 
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The outpackage could not be saved. Please, try again.'));
+    if ($this->request->is('post')) {
+        $outpackage = $this->Outpackages->patchEntity($outpackage, $this->request->getData());
+
+        // Ajouter l'ID de la feuille à l'entité Outpackage avant de sauvegarder
+        $sheetId = $this->request->getData('sheets._ids.0');
+        $outpackage->sheet_id = $sheetId;
+
+        if ($this->Outpackages->save($outpackage)) {
+            $this->Flash->success(('The outpackage has been saved.'));
+
+            // Rediriger vers la vue de la feuille avec l'ID
+            return $this->redirect(['controller' => 'Sheets', 'action' => 'clientview', $sheetId]);
         }
-        $sheets = $this->Outpackages->Sheets->find('list', ['limit' => 200])->all();
-        $this->set(compact('outpackage', 'sheets'));
+
+        $this->Flash->error(('The outpackage could not be saved. Please, try again.'));
     }
 
+    $sheets = $this->Outpackages->Sheets->find('list', ['limit' => 200])->all();
+    $this->set(compact('outpackage', 'sheets'));
+}
+    
     /**
      * Edit method
      *

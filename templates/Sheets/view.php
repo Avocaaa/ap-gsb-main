@@ -5,6 +5,8 @@
  * @var iterable<\App\Model\Entity\Outpackage> $outpackages
  */
 ?>
+   
+
 <div class="row">
     <aside class="column">
         <div class="side-nav">
@@ -54,7 +56,7 @@
 
                 <h4><?= __('Related Outpackages') ?></h4>
                 
-                <?= $this->Html->link(__('New Outpackage'), ['action' => 'add'], ['class' => 'button float-right']) ?>
+                <?= $this->Html->link(__('New Outpackage'), ['controller' => 'Outpackages', 'action' => 'add'], ['class' => 'button float-right']) ?>
                 
                 <div class="table-responsive">
                     <table>
@@ -85,7 +87,8 @@
                         
                 
                 <h4><?= __('Related Packages') ?></h4>
-                <?= $this->Html->link(__('New Package'), ['action' => 'add'], ['class' => 'button float-right']) ?>
+                <?= $this->Html->link(__('New Package'), ['controller' => 'Packages', 'action' => 'add'], ['class' => 'button float-right']) ?>
+
                 <?php if (!empty($sheet->packages)) : ?>
                 <div class="table-responsive">
                     <table>
@@ -94,6 +97,10 @@
                             <th><?= __('Price') ?></th>
                             <th><?= __('Title') ?></th>
                             <th><?= __('Body') ?></th>
+                            <th><?= __('Quantity') ?></th>
+                            <th><?= __('Total') ?></th>
+
+
                             <th class="actions"><?= __('Actions') ?></th>
                         </tr>
                         <?php foreach ($sheet->packages as $packages) : ?>
@@ -102,6 +109,21 @@
                             <td><?= h($packages->price) ?></td>
                             <td><?= h($packages->title) ?></td>
                             <td><?= h($packages->body) ?></td>
+
+                            <td>
+                                <?= $this->Form->create(null, ['url' => ['controller' => 'VotreController', 'action' => 'votreAction', $packages->id]]) ?>
+                                <?= $this->Form->hidden("packages.{$packages->id}.id", ['value' => $packages->_joinData->id]) ?>
+                                <?= $this->Form->control("packages.{$packages->id}.quantity", ['type' => 'text', 'label' => false, 'value' => isset($packages->_joinData->quantity) ? $packages->_joinData->quantity :0]) ?>
+                            </td>
+                            <td>
+                            <?php $quantitypackages = $packages->_joinData->quantity;
+                                 $pricepackages = $packages->price;
+                                 $totalpackages=$quantitypackages*$pricepackages;?>
+                                <?php echo ($totalpackages); ?>
+                            </td>
+                                
+                                
+                        
                             <td class="actions">
                                 <?= $this->Html->link(__('View'), ['controller' => 'Packages', 'action' => 'view', $packages->id]) ?>
                                 <?= $this->Html->link(__('Edit'), ['controller' => 'Packages', 'action' => 'edit', $packages->id]) ?>
@@ -113,10 +135,15 @@
                 </div>
                 <?php endif; ?>
             </div>
-            <?php $totaloutpackages = ($outpackages->price) + ($outpackages->price);
-            $totalpackages = ($packages->price) + ($packages->price);
-            $total = ($totalpackages) + ($totaloutpackages);
-                      echo ($total); ?>
+            
+        
+                
+
+
+            
+            
+
+                    
         </div>
     </div>
 
