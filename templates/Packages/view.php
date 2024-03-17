@@ -3,6 +3,9 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Package $package
  */
+$identity = $this->getRequest()->getAttribute('identity');
+$identity = $identity ?? [];
+$iduser = $identity["id"]
 ?>
 <div class="row">
     <aside class="column">

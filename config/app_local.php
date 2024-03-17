@@ -47,7 +47,7 @@ return [
             'username' => 'root',
             'password' => 'root',
 
-            'database' => 'gsb-cake',
+            'database' => 'bgsb',
             /*
              * If not using the default 'public' schema with the PostgreSQL driver
              * set it here.

@@ -5,16 +5,16 @@
  */
 ?>
 <div class="outpackages index content">
-    <?= $this->Html->link(__('New Outpackage'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Outpackages') ?></h3>
+    <?= $this->Html->link(__('Nouveau colis sortant'), ['action' => 'add'], ['class' => 'button float-right']) ?>
+    <h3><?= __('Colis sortants') ?></h3>
     <div class="table-responsive">
         <table>
             <thead>
                 <tr>
-                    <th><?= $this->Paginator->sort('id') ?></th>
-                    <th><?= $this->Paginator->sort('date') ?></th>
-                    <th><?= $this->Paginator->sort('price') ?></th>
-                    <th><?= $this->Paginator->sort('title') ?></th>
+                    <th><?= $this->Paginator->sort('ID') ?></th>
+                    <th><?= $this->Paginator->sort('Date') ?></th>
+                    <th><?= $this->Paginator->sort('Prix') ?></th>
+                    <th><?= $this->Paginator->sort('Titre') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>
@@ -26,9 +26,9 @@
                     <td><?= $this->Number->format($outpackage->price) ?></td>
                     <td><?= h($outpackage->title) ?></td>
                     <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $outpackage->id]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $outpackage->id]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $outpackage->id], ['confirm' => __('Are you sure you want to delete # {0}?', $outpackage->id)]) ?>
+                        <?= $this->Html->link(__('Voir'), ['action' => 'view', $outpackage->id]) ?>
+                        <?= $this->Html->link(__('Modifier'), ['action' => 'edit', $outpackage->id]) ?>
+                        <?= $this->Form->postLink(__('Supprimer'), ['action' => 'delete', $outpackage->id], ['confirm' => __('Êtes-vous sûr de vouloir supprimer le colis # {0}?', $outpackage->id)]) ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -37,12 +37,12 @@
     </div>
     <div class="paginator">
         <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+            <?= $this->Paginator->first('<< ' . __('premier')) ?>
+            <?= $this->Paginator->prev('< ' . __('précédent')) ?>
             <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
+            <?= $this->Paginator->next(__('suivant') . ' >') ?>
+            <?= $this->Paginator->last(__('dernier') . ' >>') ?>
         </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
+        <p><?= $this->Paginator->counter(__('Page {{page}} sur {{pages}}, affichage de {{current}} enregistrement(s) sur un total de {{count}}')) ?></p>
     </div>
 </div>

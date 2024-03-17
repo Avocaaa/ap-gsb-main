@@ -335,6 +335,40 @@ public function updateOutpackages($sheetId)
 
         return $this->redirect(['controller' => 'sheets','action' => 'clientview', $iduser]);
     }
+public function addadmin()
+{
+    $sheet = $this->Sheets->newEmptyEntity();
+
+    if ($this->request->is('post')) {
+        $sheet = $this->Sheets->patchEntity($sheet, $this->request->getData());
+
+        if ($this->Sheets->save($sheet)) {
+            // Récupérez l'id de la nouvelle feuille
+            $sheetId = $sheet->id;
+
+            // Créez une nouvelle entrée dans la table sheet_packages avec package_id = 1
+            $this->createSheetPackage($sheetId, 1, 0);
+
+            // Créez une autre entrée dans la table sheet_packages avec package_id = 2
+            $this->createSheetPackage($sheetId, 2, 0);
+
+            // Créez une autre entrée dans la table sheet_packages avec package_id = 3
+            $this->createSheetPackage($sheetId, 4, 0);
+
+            $this->Flash->success(__('La feuille a été enregistrée.'));
+            return $this->redirect(['action' => 'index']);
+        } else {
+            $this->Flash->error(__('La feuille n\'a pas pu être enregistrée. Veuillez réessayer.'));
+        }
+    }
+
+    $users = $this->Sheets->Users->find('list', ['limit' => 200])->all();
+    $states = $this->Sheets->States->find('list', ['limit' => 200])->all();
+    $outpackages = $this->Sheets->Outpackages->find('list', ['limit' => 200])->all();
+    $packages = $this->Sheets->Packages->find('list', ['limit' => 200])->all();
+    $this->set(compact('sheet', 'users', 'states', 'outpackages', 'packages'));
+}
+
     public function deletesheet($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
@@ -348,7 +382,7 @@ public function updateOutpackages($sheetId)
         return $this->redirect(['action' => 'index']);
     }
 }
-    
+
 
 
 
